@@ -5,7 +5,7 @@ import type { ConceptMapData } from "../types"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import html2canvas from "html2canvas"
-import { getColorByIndex } from "../utils/colors"
+import { getColorByIndex, conceptMapColors } from "../utils/colors"
 
 interface ConceptNodeProps {
   node: ConceptMapData["root"]
@@ -20,16 +20,11 @@ function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className={`px-4 rounded-lg border-2 ${color.border} ${color.bg} text-gray-800 font-medium
-          ${isRoot ? "text-lg" : "text-base"} relative z-10`}
+        className={`px-4 rounded-lg border-2 ${color.bg} ${color.border} text-gray-800 font-medium
+          ${isRoot ? "text-lg" : "text-base"} relative z-10 text-center`}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: isRoot ? "40px" : "32px",
-          paddingTop: "8px",
-          paddingBottom: "8px",
-          transform: "translateY(-4px)", // Compensación para html2canvas
+          height: isRoot ? "40px" : "32px",
+          lineHeight: isRoot ? "36px" : "28px",
         }}
       >
         {node.text}
@@ -48,15 +43,10 @@ function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
                 <div key={index} className="flex flex-col items-center relative">
                   <div className="w-px h-20 bg-gray-400" />
                   <div
-                    className="text-sm text-gray-500 my-2 relative z-10 bg-white px-2"
+                    className="text-sm text-gray-500 my-2 relative z-10 bg-white px-2 text-center"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      minHeight: "24px",
-                      paddingTop: "4px",
-                      paddingBottom: "4px",
-                      transform: "translateY(-4px)", // Compensación para html2canvas
+                      height: "24px",
+                      lineHeight: "24px",
                     }}
                   >
                     {relation.text}
@@ -99,8 +89,12 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
     }
   }
 
+  // Este div oculto asegura que Tailwind incluya todas las clases de color posibles
+  const colorClasses = conceptMapColors.map((color) => `${color.bg} ${color.border}`).join(" ")
+
   return (
     <div className="relative mb-8">
+      <div className={`hidden ${colorClasses}`}></div>
       <div className="relative">
         <div className="flex justify-center">
           <div ref={mapRef} className="bg-white p-12 rounded-lg shadow-lg inline-block relative">
@@ -114,29 +108,19 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
             </Button>
             <div className="mb-12 text-center">
               <h1
-                className="text-4xl font-light tracking-wide text-gray-800 mb-2"
+                className="text-4xl font-light tracking-wide text-gray-800 mb-2 text-center"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "48px",
-                  paddingTop: "12px",
-                  paddingBottom: "12px",
-                  transform: "translateY(-4px)", // Compensación para html2canvas
+                  height: "48px",
+                  lineHeight: "48px",
                 }}
               >
                 {data.title}
               </h1>
               <h2
-                className="text-xl font-light tracking-wider text-gray-600 uppercase"
+                className="text-xl font-light tracking-wider text-gray-600 uppercase text-center"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "32px",
-                  paddingTop: "8px",
-                  paddingBottom: "8px",
-                  transform: "translateY(-4px)", // Compensación para html2canvas
+                  height: "32px",
+                  lineHeight: "32px",
                 }}
               >
                 {data.subtitle}
@@ -145,21 +129,24 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
             <div className="flex justify-center py-8">
               <ConceptNode node={data.root} level={1} isRoot={true} />
             </div>
-            <div className="mt-8 text-center text-sm text-gray-400">
+            <div className="mt-8 text-center">
               <div
-                className="font-medium inline-flex items-center gap-2"
+                className="inline-block text-sm text-gray-400 font-medium"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "24px",
-                  paddingTop: "4px",
-                  paddingBottom: "4px",
-                  transform: "translateY(-4px)", // Compensación para html2canvas
+                  height: "24px",
+                  lineHeight: "24px",
                 }}
               >
                 Created with
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 200" className="h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 550 200"
+                  className="h-6 ml-2 inline-block"
+                  style={{
+                    verticalAlign: "middle",
+                    marginTop: "-2px",
+                  }}
+                >
                   <text
                     x="40"
                     y="130"
