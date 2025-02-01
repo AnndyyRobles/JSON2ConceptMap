@@ -2,8 +2,18 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'JSON 2 ConceptMap',
+  description: 'Create beautiful concept maps from JSON data',
+  openGraph: {
+    title: 'JSON 2 ConceptMap',
+    description: 'Create beautiful concept maps from JSON data',
+    images: [{
+      url: 'https://json2conceptmap.netlify.app/logo.png',
+      width: 500,
+      height: 200,
+      alt: 'JSON 2 ConceptMap Logo'
+    }],
+  }
 }
 
 export default function RootLayout({
