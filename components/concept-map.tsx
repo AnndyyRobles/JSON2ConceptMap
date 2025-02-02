@@ -5,7 +5,6 @@ import type { ConceptMapData } from "../types"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import html2canvas from "html2canvas"
-import { getColorByIndex, conceptMapColors } from "../utils/colors"
 
 interface ConceptNodeProps {
   node: ConceptMapData["root"]
@@ -14,17 +13,22 @@ interface ConceptNodeProps {
 }
 
 function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
-  const color = getColorByIndex(level - 1)
   const hasChildren = node.relations && node.relations.length > 0
 
   return (
     <div className="flex flex-col items-center">
       <div
-        className={`px-4 rounded-lg border-2 ${color.bg} ${color.border} text-gray-800 font-medium
+        className={`px-4 rounded-lg border-2 text-white
           ${isRoot ? "text-lg" : "text-base"} relative z-10 text-center`}
         style={{
-          height: isRoot ? "40px" : "32px",
-          lineHeight: isRoot ? "36px" : "28px",
+          height: isRoot ? "56px" : "48px",
+          lineHeight: isRoot ? "52px" : "44px",
+          background: "rgb(28,32,119)",
+          backgroundImage:
+            "linear-gradient(319deg, rgba(28,32,119,1) 0%, rgba(37,123,179,1) 29%, rgba(40,155,200,1) 44%, rgba(41,161,203,1) 47%, rgba(41,165,206,1) 51%, rgba(41,163,205,1) 54%, rgba(41,157,201,1) 58%, rgba(41,131,186,1) 67%, rgba(42,47,137,1) 100%)",
+          fontFamily: "'Playpen Sans', cursive",
+          fontWeight: 500,
+          textShadow: "0px 0px 1px rgba(255,255,255,0.5)",
         }}
       >
         {node.text}
@@ -47,6 +51,9 @@ function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
                     style={{
                       height: "24px",
                       lineHeight: "24px",
+                      fontFamily: "'Playpen Sans', cursive",
+                      fontWeight: 300,
+                      textShadow: "0px 0px 1px rgba(0,0,0,0.5)",
                     }}
                   >
                     {relation.text}
@@ -89,12 +96,11 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
     }
   }
 
-  // Este div oculto asegura que Tailwind incluya todas las clases de color posibles
-  const colorClasses = conceptMapColors.map((color) => `${color.bg} ${color.border}`).join(" ")
-
   return (
     <div className="relative mb-8">
-      <div className={`hidden ${colorClasses}`}></div>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
+      `}</style>
       <div className="relative">
         <div className="flex justify-center">
           <div ref={mapRef} className="bg-white p-12 rounded-lg shadow-lg inline-block relative">
@@ -112,6 +118,8 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
                 style={{
                   height: "48px",
                   lineHeight: "48px",
+                  fontFamily: "'Playpen Sans', cursive",
+                  fontWeight: 500,
                 }}
               >
                 {data.title}
@@ -121,6 +129,8 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
                 style={{
                   height: "32px",
                   lineHeight: "32px",
+                  fontFamily: "'Playpen Sans', cursive",
+                  fontWeight: 300,
                 }}
               >
                 {data.subtitle}
@@ -135,6 +145,8 @@ export default function ConceptMap({ data }: { data: ConceptMapData }) {
                 style={{
                   height: "24px",
                   lineHeight: "24px",
+                  fontFamily: "'Playpen Sans', cursive",
+                  fontWeight: 300,
                 }}
               >
                 Created with
