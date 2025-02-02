@@ -40,7 +40,9 @@ export default function Generator() {
 
   return (
     <div className={`min-h-screen bg-gray-50 py-12 ${montserrat.className}`}>
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-2xl mx-auto px-4">
+        {" "}
+        {/* Update 1 */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-light tracking-wide text-gray-800 mb-3">Concept Map Generator</h1>
           <p className="text-lg text-gray-600 mb-6">Create beautiful concept maps from JSON data</p>
