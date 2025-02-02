@@ -21,14 +21,17 @@ function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
         className={`px-4 rounded-lg border-2 text-white
           ${isRoot ? "text-lg" : "text-base"} relative z-10 text-center`}
         style={{
-          height: isRoot ? "56px" : "48px",
-          lineHeight: isRoot ? "52px" : "44px",
+          minHeight: isRoot ? "56px" : "48px",
+          padding: "10px 15px",
           background: "rgb(28,32,119)",
           backgroundImage:
             "linear-gradient(319deg, rgba(28,32,119,1) 0%, rgba(37,123,179,1) 29%, rgba(40,155,200,1) 44%, rgba(41,161,203,1) 47%, rgba(41,165,206,1) 51%, rgba(41,163,205,1) 54%, rgba(41,157,201,1) 58%, rgba(41,131,186,1) 67%, rgba(42,47,137,1) 100%)",
           fontFamily: "'Playpen Sans', cursive",
           fontWeight: 500,
           textShadow: "0px 0px 1px rgba(255,255,255,0.5)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {node.text}
@@ -49,11 +52,14 @@ function ConceptNode({ node, level, isRoot = false }: ConceptNodeProps) {
                   <div
                     className="text-sm text-gray-500 my-2 relative z-10 bg-white px-2 text-center"
                     style={{
-                      height: "24px",
-                      lineHeight: "24px",
+                      minHeight: "24px",
+                      padding: "5px 10px",
                       fontFamily: "'Playpen Sans', cursive",
                       fontWeight: 300,
                       textShadow: "0px 0px 1px rgba(0,0,0,0.5)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     {relation.text}
